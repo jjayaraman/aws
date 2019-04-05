@@ -17,7 +17,7 @@ public class ListBucket {
         List<Bucket> buckets = response.buckets();
 
         for (Bucket bucket : buckets) {
-            System.out.println(bucket.name());
+            System.out.println(bucket);
         }
     }
 }
