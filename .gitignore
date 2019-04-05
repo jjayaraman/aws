@@ -12,3 +12,5 @@ buildNumber.properties
 !/.mvn/wrapper/maven-wrapper.jar
 
 s3/\.idea/
+
+s3/crud/\.idea/
