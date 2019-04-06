@@ -16,3 +16,5 @@ s3/\.idea/
 s3/crud/\.idea/
 
 \.idea/
+
+s3/crud/src/main/resources/out/
