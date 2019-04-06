@@ -8,10 +8,12 @@ public class DeleteBucket {
 
 
     public static void main(String[] args) {
-        S3Client s3Client = S3Client.builder().region(Region.EU_WEST_1).build();
+        S3Client s3Client = S3Client.builder().build();
         String bucketName = "jaybucket1000";
         DeleteBucketRequest request = DeleteBucketRequest.builder().bucket(bucketName).build();
         s3Client.deleteBucket(request);
+
+        s3Client.close();
 
     }
 }

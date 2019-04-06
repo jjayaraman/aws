@@ -12,5 +12,7 @@ public class CreateBucket {
         CreateBucketRequest request = CreateBucketRequest.builder().bucket("jaybucket2000").build();
         CreateBucketResponse response =  s3Client.createBucket(request);
         System.out.println("response :: " +response);
+
+        s3Client.close();
     }
 }

@@ -19,5 +19,7 @@ public class ListBucket {
         for (Bucket bucket : buckets) {
             System.out.println(bucket);
         }
+
+        s3Client.close();
     }
 }
