@@ -1,0 +1,3 @@
+My first file to upload into S3 bucket
+
+Hello bucket.
