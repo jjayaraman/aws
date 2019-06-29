@@ -16,7 +16,9 @@ public class ListBuckets {
         for (Bucket b : buckets) {
             System.out.println("* " + b.getName());
 
-            System.out.println("* " + b.);
+
+            System.out.println(b.toString());
+
         }
 
     }
