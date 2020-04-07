@@ -15,11 +15,12 @@ import java.util.Date;
 
 public class UploadFile {
 
-    static String bucket = "jaybucket2000";  // public
+    //static String bucket = "jaybucket2000";  // public
+    static String bucket = "jjaytest";  // private
 
     public static void main(String[] args) {
 
-        AmazonS3 s3 = AmazonS3Client.builder().withRegion(Regions.EU_WEST_1).build();
+        AmazonS3 s3 = AmazonS3Client.builder().withRegion(Regions.EU_WEST_2).build();
 
         try {
             Instant start = Instant.now();
@@ -31,7 +32,7 @@ public class UploadFile {
             System.out.println("uploading....");
             String key = DateUtils.formatDate(new Date(), "YYYYMMddhhmmss");
 
-            s3.putObject(bucket, key, Files.newInputStream(path), null);
+            s3.putObject(bucket, "first/" +key, Files.newInputStream(path), null);
             Instant end = Instant.now();
 
             System.out.println("done in " + Duration.between(start, end));

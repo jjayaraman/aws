@@ -7,13 +7,12 @@ import com.amazonaws.services.s3.model.ListObjectsV2Result;
 
 public class ReadBucket {
 
-    //static String bucket = "jjaytest";  // private
-    static String bucket = "jaybucket2000";  // public
+    static String bucket = "jjaytest";  // private
+//    static String bucket = "jaybucket2000";  // public
 
     public static void main(String[] args) {
 
-        AmazonS3 s3 = AmazonS3Client.builder().withRegion(Regions.EU_WEST_1).build();
-
+        AmazonS3 s3 = AmazonS3Client.builder().withRegion(Regions.EU_WEST_2).build();
 
         if(s3.doesBucketExistV2(bucket)){
 
@@ -21,10 +20,7 @@ public class ReadBucket {
 
             System.out.println(result.getObjectSummaries());
 
-
-//            System.out.println(s3.listBuckets());
-
-            String s = s3.getObjectAsString(bucket,"1");
+            String s = s3.getObjectAsString(bucket,"20190629085254");
             System.out.println("data : " +s);
 
             // System.out.println(Regions.getCurrentRegion());
