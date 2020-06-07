@@ -3,6 +3,8 @@
  */
 package com.jai.aws.dynamodb;
 
+import com.jai.aws.dynamodb.model.Address;
+import com.jai.aws.dynamodb.model.Employee;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -13,7 +15,25 @@ public class ApplicationTest {
 
     @Test
     public void testSomeLibraryMethod() {
-        application.create();
+        Employee employee = new Employee();
+        employee.setEmployeeName("jjay");
+        employee.setPhone("1234567890");
+
+        Address homeAddress = new Address();
+        homeAddress.setFirstLine("788, Shenoy Nagar");
+        homeAddress.setSecondLine("Port Road");
+        homeAddress.setCity("Mumbai");
+        homeAddress.setCountry("India");
+
+        Address workAddress = new Address();
+        workAddress.setFirstLine("10, Gandhi Nagar");
+        workAddress.setSecondLine("Great Road");
+        workAddress.setCity("Delhi");
+        workAddress.setCountry("India");
+
+        employee.setHomeAddress(homeAddress);
+        employee.setWorkAddress(workAddress);
+        application.create(employee);
 
     }
 }

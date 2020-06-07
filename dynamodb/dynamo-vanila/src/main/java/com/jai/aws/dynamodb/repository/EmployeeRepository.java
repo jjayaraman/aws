@@ -1,8 +1,8 @@
 package com.jai.aws.dynamodb.repository;
 
-import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
+import com.jai.aws.dynamodb.model.Address;
+import com.jai.aws.dynamodb.model.Employee;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
-import software.amazon.awssdk.awscore.client.builder.AwsClientBuilder;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
@@ -29,11 +29,39 @@ public class EmployeeRepository {
     }
 
 
-    public PutItemResponse create() {
+    public PutItemResponse create(final Employee employee) {
 
         Map<String, AttributeValue> item = new HashMap<>();
         item.put("employee_id", AttributeValue.builder().s(UUID.randomUUID().toString()).build());
-        item.put("employeeName", AttributeValue.builder().s("jay").build());
+        item.put("employeeName", AttributeValue.builder().s(employee.getEmployeeName()).build());
+        item.put("phone", AttributeValue.builder().n(employee.getPhone()).build());
+
+        Address homeAddress = employee.getHomeAddress();
+        if (homeAddress != null) {
+
+            item.put("homeAddress",
+                    AttributeValue.builder()
+                            .l(
+                                    AttributeValue.builder().s(homeAddress.getFirstLine()).build(),
+                                    AttributeValue.builder().s(homeAddress.getSecondLine()).build(),
+                                    AttributeValue.builder().s(homeAddress.getCity()).build(),
+                                    AttributeValue.builder().s(homeAddress.getCountry()).build()
+                            )
+                            .build());
+        }
+
+        Address workAddress = employee.getHomeAddress();
+        if(workAddress != null){
+            item.put("workAddress",
+                    AttributeValue.builder()
+                            .l(
+                                    AttributeValue.builder().s(workAddress.getFirstLine()).build(),
+                                    AttributeValue.builder().s(workAddress.getSecondLine()).build(),
+                                    AttributeValue.builder().s(workAddress.getCity()).build(),
+                                    AttributeValue.builder().s(workAddress.getCountry()).build()
+                            )
+                            .build());
+        }
 
         PutItemRequest putItemRequest = PutItemRequest.builder()
                 .tableName(TABLE)
@@ -46,3 +74,4 @@ public class EmployeeRepository {
 
 
 }
+

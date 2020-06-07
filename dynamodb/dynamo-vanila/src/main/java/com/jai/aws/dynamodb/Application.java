@@ -3,6 +3,7 @@
  */
 package com.jai.aws.dynamodb;
 
+import com.jai.aws.dynamodb.model.Employee;
 import com.jai.aws.dynamodb.repository.EmployeeRepository;
 
 import javax.xml.transform.Templates;
@@ -15,8 +16,8 @@ public class Application {
         employeeRepository = new EmployeeRepository();
     }
 
-    public void create() {
-        employeeRepository.create();
+    public void create(Employee employee) {
+        employeeRepository.create(employee);
     }
 
 
