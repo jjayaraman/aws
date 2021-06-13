@@ -4,11 +4,10 @@ import com.jai.aws.dynamodb.model.Address;
 import com.jai.aws.dynamodb.model.Employee;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
-import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
-import software.amazon.awssdk.services.dynamodb.model.PutItemResponse;
+import software.amazon.awssdk.services.dynamodb.model.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -26,6 +25,18 @@ public class EmployeeRepository {
                         .profileName("default")
                         .build())
                 .build();
+    }
+
+
+    public List<String> getAllTables() {
+        return dynamoDbClient.listTables().tableNames();
+    }
+
+    public ScanResponse readAll() {
+        ScanRequest scanRequest = ScanRequest.builder()
+                .tableName(TABLE)
+                .build();
+        return dynamoDbClient.scan(scanRequest);
     }
 
 
@@ -50,8 +61,8 @@ public class EmployeeRepository {
                             .build());
         }
 
-        Address workAddress = employee.getHomeAddress();
-        if(workAddress != null){
+        Address workAddress = employee.getWorkAddress();
+        if (workAddress != null) {
             item.put("workAddress",
                     AttributeValue.builder()
                             .l(
@@ -73,5 +84,16 @@ public class EmployeeRepository {
     }
 
 
+    public DeleteItemResponse delete(String employeeId) {
+        Map<String, AttributeValue> item = new HashMap<>();
+        item.put("employee_id", AttributeValue.builder().s(employeeId).build());
+
+        DeleteItemRequest deleteItemRequest = DeleteItemRequest
+                .builder()
+                .key(item)
+                .tableName(TABLE)
+                .build();
+        return dynamoDbClient.deleteItem(deleteItemRequest);
+    }
 }
 

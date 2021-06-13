@@ -6,12 +6,12 @@ package com.jai.aws.dynamodb;
 import com.jai.aws.dynamodb.model.Address;
 import com.jai.aws.dynamodb.model.Employee;
 import org.junit.Test;
+import software.amazon.awssdk.services.dynamodb.model.DeleteItemResponse;
+import software.amazon.awssdk.services.dynamodb.model.ScanResponse;
 
-import static org.junit.Assert.*;
+public class EmployeeServiceTest {
 
-public class ApplicationTest {
-
-    Application application = new Application();
+    EmployeeService application = new EmployeeService();
 
     @Test
     public void testSomeLibraryMethod() {
@@ -35,5 +35,24 @@ public class ApplicationTest {
         employee.setWorkAddress(workAddress);
         application.create(employee);
 
+    }
+
+    @Test
+    public void delete() {
+        String employeeId = "e8b23563-ec23-4886-97b9-e4364a867271";
+        DeleteItemResponse response = application.delete(employeeId);
+        System.out.println(response);
+    }
+
+    @Test
+    public void getAllTables(){
+        System.out.println(application.getAllTables());
+    }
+
+    @Test
+    public void readAll(){
+        ScanResponse scanResponse = application.readAll();
+        System.out.println(scanResponse.count());
+        scanResponse.items().forEach(System.out::println);
     }
 }
